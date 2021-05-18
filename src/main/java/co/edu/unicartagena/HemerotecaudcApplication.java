@@ -1,24 +1,27 @@
 package co.edu.unicartagena;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import co.edu.unicartagena.service.HemerotecaService;
+import co.edu.unicartagena.model.Libro;
+import co.edu.unicartagena.service.LibroService;
 
 @SpringBootApplication
 @RestController
 public class HemerotecaudcApplication {
 	
 	@Autowired
-	HemerotecaService hemeroteca;
+	LibroService libroService;
 
 	@GetMapping("/test")
 	public Object test() {
 		
-		return hemeroteca.test();
+		return libroService.test();
 		
 	}
 
@@ -27,6 +30,11 @@ public class HemerotecaudcApplication {
 		
 		return "Error";
 		
+	}
+
+	@GetMapping("/findAllBooks")
+	public List<Libro> findAll() {
+		return libroService.findAll();
 	}
 	
 	public static void main(String[] args) {
