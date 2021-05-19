@@ -4,6 +4,7 @@
 package co.edu.unicartagena.model;
 
 import java.io.Serializable;
+import java.sql.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -39,6 +40,26 @@ public class Libro implements Serializable{
 	@Column(name="nombre")
 	private String nombre;
 
+	@Column(name="referencia")
+	private String referencia;
+
+	@Column(name="fechaingreso")
+	private Date fechaIngreso;
+
+	@Column(name="anopublicacion")
+	private String anio;
+
+	@NotNull
+	@Column(name="tiporegistro")
+	private String tipoRegistro;
+
+	@Column(name="numregistro")
+	private String numRegistro;
+
+	@NotNull
+	@Column(name="tipo_de_divulgacion")
+	private String tipoDivulgacion;
+	
 	public Integer getLibroId() {
 		return libroId;
 	}
@@ -55,5 +76,52 @@ public class Libro implements Serializable{
 		this.nombre = nombre;
 	}
 
+	public String getReferencia() {
+		return referencia;
+	}
 
+	public void setReferencia(String referencia) {
+		this.referencia = referencia;
+	}
+
+	public Date getFechaIngreso() {
+		return fechaIngreso;
+	}
+
+	public void setFechaIngreso(Date fechaIngreso) {
+		this.fechaIngreso = fechaIngreso;
+	}
+
+	public String getAnio() {
+		return anio;
+	}
+
+	public void setAnio(String anio) {
+		this.anio = anio;
+	}
+
+	public String getTipoRegistro() {
+		return tipoRegistro;
+	}
+
+	public void setTipoRegistro(String tipoRegistro) {
+		this.tipoRegistro = tipoRegistro;
+	}
+
+	public String getNumRegistro() {
+		return numRegistro;
+	}
+
+	public void setNumRegistro(String numRegistro) {
+		this.numRegistro = numRegistro;
+	}
+
+	public String getTipoDivulgacion() {
+		return tipoDivulgacion;
+	}
+
+	public void setTipoDivulgacion(String tipoDivulgacion) {
+		this.tipoDivulgacion = tipoDivulgacion;
+	}
+	
 }
