@@ -62,4 +62,16 @@ public class LibroServiceImpl implements LibroService{
 		return libroRepository.findAll();
 	}
 
+	@Override
+	public Optional<Libro> findByNombreContaining(String nombre) {
+		
+		Optional<Libro> libro = libroRepository.findByNombreContaining(nombre);
+		
+		if(libro.isPresent()) {
+			return libro;
+		}
+		
+		return null;
+	}
+
 }
