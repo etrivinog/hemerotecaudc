@@ -12,6 +12,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQuery;
+import javax.persistence.SequenceGenerator;
 import javax.validation.constraints.NotNull;
 
 /**
@@ -33,7 +34,8 @@ public class Libro implements Serializable{
 	
 	@Id
 	@Column(name="libroid")
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@SequenceGenerator(name="pk_libros_seq",sequenceName="pk_libros_seq", allocationSize=1)
+	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="pk_libros_seq")
 	private Integer libroId;
 
 	@NotNull
@@ -47,18 +49,18 @@ public class Libro implements Serializable{
 	private Date fechaIngreso;
 
 	@Column(name="anopublicacion")
-	private String anio;
+	private Integer anio;
 
 	@NotNull
 	@Column(name="tiporegistro")
-	private String tipoRegistro;
+	private Integer tipoRegistro;
 
 	@Column(name="numregistro")
 	private String numRegistro;
 
 	@NotNull
 	@Column(name="tipo_de_divulgacion")
-	private String tipoDivulgacion;
+	private Integer tipoDivulgacion;
 	
 	public Integer getLibroId() {
 		return libroId;
@@ -92,19 +94,19 @@ public class Libro implements Serializable{
 		this.fechaIngreso = fechaIngreso;
 	}
 
-	public String getAnio() {
+	public Integer getAnio() {
 		return anio;
 	}
 
-	public void setAnio(String anio) {
+	public void setAnio(Integer anio) {
 		this.anio = anio;
 	}
 
-	public String getTipoRegistro() {
+	public Integer getTipoRegistro() {
 		return tipoRegistro;
 	}
 
-	public void setTipoRegistro(String tipoRegistro) {
+	public void setTipoRegistro(Integer tipoRegistro) {
 		this.tipoRegistro = tipoRegistro;
 	}
 
@@ -116,11 +118,11 @@ public class Libro implements Serializable{
 		this.numRegistro = numRegistro;
 	}
 
-	public String getTipoDivulgacion() {
+	public Integer getTipoDivulgacion() {
 		return tipoDivulgacion;
 	}
 
-	public void setTipoDivulgacion(String tipoDivulgacion) {
+	public void setTipoDivulgacion(Integer tipoDivulgacion) {
 		this.tipoDivulgacion = tipoDivulgacion;
 	}
 	

@@ -8,6 +8,6 @@ import co.edu.unicartagena.model.Libro;
 
 public interface LibroRepository  extends JpaRepository<Libro, Integer>{
 	
-	public Optional<Libro> findByNombreContaining(String nombre);
+	public Optional<Libro> findByNombreContainingIgnoreCase(String nombre);
 
 }

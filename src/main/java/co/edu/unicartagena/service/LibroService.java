@@ -15,6 +15,6 @@ public interface LibroService extends GenericService<Libro, Integer> {
 	
 	public Object test();
 	
-	public Optional<Libro> findByNombreContaining(String nombre);
+	public Optional<Libro> findByNombreContainingIgnoreCase(String nombre);
 
 }

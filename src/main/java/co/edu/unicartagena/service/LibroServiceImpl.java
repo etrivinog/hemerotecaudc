@@ -29,32 +29,28 @@ public class LibroServiceImpl implements LibroService{
 
 	@Override
 	public Libro save(Libro entity) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+		return libroRepository.save(entity);
 	}
 
 	@Override
 	public Libro update(Libro entity) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+		// TODO Validate if exists before
+		return libroRepository.save(entity);
 	}
 
 	@Override
 	public void delete(Libro entity) throws Exception {
-		// TODO Auto-generated method stub
-		
+		libroRepository.delete(entity);
 	}
 
 	@Override
 	public void deleteById(Integer id) throws Exception {
-		// TODO Auto-generated method stub
-		
+		libroRepository.deleteById(id);
 	}
 
 	@Override
 	public Optional<Libro> findById(Integer id) {
-		// TODO Auto-generated method stub
-		return null;
+		return libroRepository.findById(id);
 	}
 
 	@Override
@@ -63,9 +59,9 @@ public class LibroServiceImpl implements LibroService{
 	}
 
 	@Override
-	public Optional<Libro> findByNombreContaining(String nombre) {
+	public Optional<Libro> findByNombreContainingIgnoreCase(String nombre) {
 		
-		Optional<Libro> libro = libroRepository.findByNombreContaining(nombre);
+		Optional<Libro> libro = libroRepository.findByNombreContainingIgnoreCase(nombre);
 		
 		if(libro.isPresent()) {
 			return libro;
