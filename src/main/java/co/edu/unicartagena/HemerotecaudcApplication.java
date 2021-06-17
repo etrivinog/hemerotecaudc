@@ -7,8 +7,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -26,7 +28,7 @@ import co.edu.unicartagena.service.LibroService;
 
 @SpringBootApplication
 @RestController
-@CrossOrigin(origins = "*", methods= {RequestMethod.GET,RequestMethod.POST})
+@CrossOrigin(origins = "*", methods= {RequestMethod.GET,RequestMethod.POST, RequestMethod.PUT, RequestMethod.DELETE})
 public class HemerotecaudcApplication {
 	
 	@Autowired
@@ -65,7 +67,7 @@ public class HemerotecaudcApplication {
 	public Optional<Libro> searchBook(@RequestParam(name = "name") String nombre) {
 		return libroService.findByNombreContainingIgnoreCase(nombre);
 	}
-	
+
 	@PostMapping("/api/v1/books/save")
 	@ResponseBody
 	public Libro saveBook(@RequestBody Libro libro) {
@@ -78,7 +80,30 @@ public class HemerotecaudcApplication {
 		}
 		return null;
 	}
-	
+
+	@PutMapping("/api/v1/books/update")
+	@ResponseBody
+	public Libro updateBook(@RequestBody Libro libro) {
+		try {
+			System.out.println("libro.nombre: "+libro.getNombre());
+			return libroService.update(libro);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	@DeleteMapping("/api/v1/books/delete")
+	public void deleteBookById(@RequestParam(name = "libroId") Integer libroId) {
+		try {
+			libroService.deleteById(libroId);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
 	public static void main(String[] args) {
 		SpringApplication.run(HemerotecaudcApplication.class, args);
 	}
