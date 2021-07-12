@@ -60,12 +60,12 @@ public class HemerotecaudcApplication {
 	/************************************* Books requests ****************************************/
 	@GetMapping("/api/v1/books/findAll")
 	public List<Libro> findAllBooks() {
-		return libroService.findAll();
+		return libroService.findAllByOrderByNombre();
 	}
 	
 	@GetMapping("/api/v1/books/search")
-	public Optional<Libro> searchBook(@RequestParam(name = "name") String nombre) {
-		return libroService.findByNombreContainingIgnoreCase(nombre);
+	public Optional<List<Libro>> searchBook(@RequestParam(name = "name") String nombre) {
+		return libroService.findByNombreContainingIgnoreCaseOrderByNombre(nombre);
 	}
 
 	@PostMapping("/api/v1/books/save")

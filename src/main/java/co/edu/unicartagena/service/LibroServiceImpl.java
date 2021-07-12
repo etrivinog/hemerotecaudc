@@ -57,11 +57,16 @@ public class LibroServiceImpl implements LibroService{
 	public List<Libro> findAll() {
 		return libroRepository.findAll();
 	}
+	
+	@Override
+	public List<Libro> findAllByOrderByNombre(){
+		return libroRepository.findAllByOrderByNombre();
+	}
 
 	@Override
-	public Optional<Libro> findByNombreContainingIgnoreCase(String nombre) {
+	public Optional<List<Libro>> findByNombreContainingIgnoreCaseOrderByNombre(String nombre) {
 		
-		Optional<Libro> libro = libroRepository.findByNombreContainingIgnoreCase(nombre);
+		Optional<List<Libro>> libro = libroRepository.findByNombreContainingIgnoreCaseOrderByNombre(nombre);
 		
 		if(libro.isPresent()) {
 			return libro;
