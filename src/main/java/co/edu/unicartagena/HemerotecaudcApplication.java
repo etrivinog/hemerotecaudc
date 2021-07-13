@@ -20,10 +20,12 @@ import org.springframework.web.bind.annotation.RestController;
 import co.edu.unicartagena.model.Autor;
 import co.edu.unicartagena.model.Ejemplar;
 import co.edu.unicartagena.model.Estado;
+import co.edu.unicartagena.model.Estudiante;
 import co.edu.unicartagena.model.Libro;
 import co.edu.unicartagena.service.AutorService;
 import co.edu.unicartagena.service.EjemplarService;
 import co.edu.unicartagena.service.EstadoService;
+import co.edu.unicartagena.service.EstudianteService;
 import co.edu.unicartagena.service.LibroService;
 
 @SpringBootApplication
@@ -36,6 +38,9 @@ public class HemerotecaudcApplication {
 
 	@Autowired
 	AutorService autorService;
+
+	@Autowired
+	EstudianteService estudianteService;
 
 	@Autowired
 	EjemplarService ejemplarService;
@@ -143,7 +148,57 @@ public class HemerotecaudcApplication {
 	public Optional<Ejemplar> searchEjemplar(@RequestParam(name = "description") String description) {
 		return ejemplarService.findByDescripcionContainingIgnoreCase(description);
 	}
+	
+	/************************************* Préstamo requests ****************************************/
+	
 
+	
+	/************************************* Estudiantes requests ****************************************/
+	
+
+	@GetMapping("/api/v1/students/findAll")
+	public List<Estudiante> findAllStudents() {
+		return estudianteService.findAllByOrderByNombre();
+	}
+	
+	@GetMapping("/api/v1/students/search")
+	public Optional<List<Estudiante>> searchStudent(@RequestParam(name = "name") String nombres) {
+		return estudianteService.findByNombresContainingIgnoreCaseOrderByNombres(nombres);
+	}
+
+	@PostMapping("/api/v1/students/save")
+	@ResponseBody
+	public Estudiante saveStudent(@RequestBody Estudiante estudiante) {
+		try {
+			System.out.println("estudiante.nombres: "+estudiante.getNombres());
+			return estudianteService.save(estudiante);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	@PutMapping("/api/v1/students/update")
+	@ResponseBody
+	public Estudiante updateStudent(@RequestBody Estudiante estudiante) {
+		try {
+			System.out.println("libro.nombre: "+estudiante.getNombres());
+			return estudianteService.update(estudiante);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	@DeleteMapping("/api/v1/students/delete")
+	public void deleteStudentById(@RequestParam(name = "idEstudiante") Integer idEstudiante) {
+		try {
+			estudianteService.deleteById(idEstudiante);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
 	/************************************* Statuses requests ****************************************/
 	
 	@GetMapping("/api/v1/status/findAll")
