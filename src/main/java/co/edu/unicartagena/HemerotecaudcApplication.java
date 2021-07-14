@@ -22,11 +22,14 @@ import co.edu.unicartagena.model.Ejemplar;
 import co.edu.unicartagena.model.Estado;
 import co.edu.unicartagena.model.Estudiante;
 import co.edu.unicartagena.model.Libro;
+import co.edu.unicartagena.model.Prestamo;
+import co.edu.unicartagena.service.AutenticacionService;
 import co.edu.unicartagena.service.AutorService;
 import co.edu.unicartagena.service.EjemplarService;
 import co.edu.unicartagena.service.EstadoService;
 import co.edu.unicartagena.service.EstudianteService;
 import co.edu.unicartagena.service.LibroService;
+import co.edu.unicartagena.service.PrestamoService;
 
 @SpringBootApplication
 @RestController
@@ -46,9 +49,15 @@ public class HemerotecaudcApplication {
 	EjemplarService ejemplarService;
 
 	@Autowired
+	PrestamoService prestamoService;
+
+	@Autowired
+	AutenticacionService autenticacionService;
+	
+	@Autowired
 	EstadoService estadoService;
 
-	@GetMapping("/test")
+	@GetMapping("/api/v1/verifyServer")
 	public Object test() {
 		
 		return libroService.test();
@@ -152,7 +161,7 @@ public class HemerotecaudcApplication {
 	/************************************* Préstamo requests ****************************************/
 	
 
-	
+
 	/************************************* Estudiantes requests ****************************************/
 	
 
@@ -198,6 +207,63 @@ public class HemerotecaudcApplication {
 			e.printStackTrace();
 		}
 	}
+
+	/************************************* Prestamos requests ****************************************/
+	
+
+	@GetMapping("/api/v1/lends/findAll")
+	public List<Prestamo> findAllLends() {
+		return prestamoService.findAll();
+	}
+
+	@GetMapping("/api/v1/lends/findByStudentCode")
+	public List<Prestamo> listLendsByStudentCode(@RequestParam(name = "code") Integer code) {
+		return prestamoService.findByCodEstudiante(code);
+	}
+	
+	@PostMapping("/api/v1/lends/save")
+	@ResponseBody
+	public Prestamo saveLend(@RequestBody Prestamo prestamo) {
+		try {
+			System.out.println("prestamo.idejemplar: "+prestamo.getIdEjemplar());
+			return prestamoService.save(prestamo);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	@PutMapping("/api/v1/lends/update")
+	@ResponseBody
+	public Prestamo updateLend(@RequestBody Prestamo prestamo) {
+		try {
+			System.out.println("prestamo.idejemplar: "+prestamo.getIdEjemplar());
+			return prestamoService.update(prestamo);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	@DeleteMapping("/api/v1/lends/delete")
+	public void deleteLendById(@RequestParam(name = "idprestamos") Integer idPrestamo) {
+		try {
+			prestamoService.deleteById(idPrestamo);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	/************************************* Autentica requests ****************************************/
+
+	@GetMapping("/api/v1/auth/login")
+	public Object listLendsByStudentCode(
+													@RequestParam(name = "user") String nombre,
+													@RequestParam(name = "pass") String codigo
+												) {
+		return autenticacionService.login(nombre, codigo);
+	}
+	
 	
 	/************************************* Statuses requests ****************************************/
 	

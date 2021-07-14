@@ -22,7 +22,7 @@ public class LibroServiceImpl implements LibroService{
 	@Override
 	public Object test() {
 		
-		Object object = "Hola!";
+		String object = "OK";
 		
 		return object;
 	}
