@@ -271,5 +271,6 @@ public class HemerotecaudcApplication {
 	public List<Estado> findAllStatus() {
 		return estadoService.findAll();
 	}
+	
 
 }
