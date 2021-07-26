@@ -51,6 +51,9 @@ public class Prestamo implements Serializable{
 	@Column(name="codEstudiante")
 	private Integer codEstudiante;
 
+	@Column(name="estado")
+	private String estado;
+
 	public Integer getIdprestamos() {
 		return idprestamos;
 	}
@@ -89,6 +92,14 @@ public class Prestamo implements Serializable{
 
 	public void setCodEstudiante(Integer codEstudiante) {
 		this.codEstudiante = codEstudiante;
+	}
+
+	public String getEstado() {
+		return estado;
+	}
+
+	public void setEstado(String estado) {
+		this.estado = estado;
 	}
 	
 }

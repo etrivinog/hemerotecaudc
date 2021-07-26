@@ -233,22 +233,31 @@ public class HemerotecaudcApplication {
 		return null;
 	}
 
-	@PutMapping("/api/v1/lends/update")
+	@PutMapping("/api/v1/lends/approve")
 	@ResponseBody
-	public Prestamo updateLend(@RequestBody Prestamo prestamo) {
+	public Prestamo approveLend(@RequestParam(name = "idprestamos") Integer idPrestamo) {
 		try {
-			System.out.println("prestamo.idejemplar: "+prestamo.getIdEjemplar());
-			return prestamoService.update(prestamo);
+			System.out.println("prestamo.idejemplar: "+idPrestamo);
+			return prestamoService.approve(idPrestamo);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return null;
 	}
 
-	@DeleteMapping("/api/v1/lends/delete")
-	public void deleteLendById(@RequestParam(name = "idprestamos") Integer idPrestamo) {
+	@DeleteMapping("/api/v1/lends/reject")
+	public void rejectL(@RequestParam(name = "idprestamos") Integer idPrestamo) {
 		try {
-			prestamoService.deleteById(idPrestamo);
+			prestamoService.reject(idPrestamo);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	@DeleteMapping("/api/v1/lends/finalize")
+	public void finalizeLend(@RequestParam(name = "idprestamos") Integer idPrestamo) {
+		try {
+			prestamoService.finalize(idPrestamo);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

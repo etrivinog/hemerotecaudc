@@ -9,6 +9,6 @@ import co.edu.unicartagena.model.Autenticacion;
 
 public interface AutenticacionRepository  extends JpaRepository<Autenticacion, Integer>{
 	
-	public Optional<List<Autenticacion>> findByNombreAndCodigoDeInicio(String nombre, String codigo);
+	public List<Autenticacion> findByNombreAndCodigoDeInicio(String nombre, String codigo);
 
 }

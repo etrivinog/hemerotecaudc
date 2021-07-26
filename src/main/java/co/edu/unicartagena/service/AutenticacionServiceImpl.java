@@ -52,11 +52,11 @@ public class AutenticacionServiceImpl implements AutenticacionService{
 	@Override
 	public Object login(String nombre, String codigo) {
 		
-		if(autenticacionRepository.findByNombreAndCodigoDeInicio(nombre, codigo).isPresent()) {
+		if(!autenticacionRepository.findByNombreAndCodigoDeInicio(nombre, codigo).isEmpty()) {
 			return "OK";
 		}
 		
-		return "";
+		return "FAIL";
 	}
 	
 }

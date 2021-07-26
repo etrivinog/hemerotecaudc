@@ -1,5 +1,6 @@
 package co.edu.unicartagena.service;
 
+import java.sql.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -21,9 +22,79 @@ public class PrestamoServiceImpl implements PrestamoService{
 
 	@Override
 	public Prestamo save(Prestamo entity) throws Exception {
+		
+		entity.setEstado("E");
+		
 		return prestamoRepository.save(entity);
 	}
 
+	@Override
+	public Prestamo approve(Integer idPrestamo) throws Exception {
+
+		Optional<Prestamo> prestamoOp = prestamoRepository.findById(idPrestamo);
+		
+		Prestamo prestamo;
+		
+		if(prestamoOp.isPresent()) {
+			prestamo = prestamoOp.get();
+			
+			java.util.Date date = new java.util.Date();
+			
+			Date sqlDate = new Date(date.getTime());
+			
+			prestamo.setFechaInicio(sqlDate);
+			prestamo.setEstado("A");
+			
+			return prestamoRepository.save(prestamo);
+		}
+		
+		return null;
+		
+	}
+
+	@Override
+	public Prestamo finalize(Integer idPrestamo) throws Exception {
+
+		Optional<Prestamo> prestamoOp = prestamoRepository.findById(idPrestamo);
+		
+		Prestamo prestamo;
+		
+		if(prestamoOp.isPresent()) {
+			prestamo = prestamoOp.get();
+			
+			java.util.Date date = new java.util.Date();
+			
+			Date sqlDate = new Date(date.getTime());
+			
+			prestamo.setFechaFin(sqlDate);
+			prestamo.setEstado("T");
+			
+			return prestamoRepository.save(prestamo);
+		}
+		
+		return null;
+		
+	}
+
+	@Override
+	public Prestamo reject(Integer idPrestamo) throws Exception {
+
+		Optional<Prestamo> prestamoOp = prestamoRepository.findById(idPrestamo);
+		
+		Prestamo prestamo;
+		
+		if(prestamoOp.isPresent()) {
+			prestamo = prestamoOp.get();
+			
+			prestamo.setEstado("R");
+			
+			return prestamoRepository.save(prestamo);
+		}
+		
+		return null;
+		
+	}
+	
 	@Override
 	public Prestamo update(Prestamo entity) throws Exception {
 		return prestamoRepository.save(entity);
