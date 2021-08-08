@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import co.edu.unicartagena.dao.LibroDao;
 import co.edu.unicartagena.model.Autor;
 import co.edu.unicartagena.model.Ejemplar;
 import co.edu.unicartagena.model.Estado;
@@ -73,7 +74,7 @@ public class HemerotecaudcApplication {
 
 	/************************************* Books requests ****************************************/
 	@GetMapping("/api/v1/books/findAll")
-	public List<Libro> findAllBooks() {
+	public List<LibroDao> findAllBooks() {
 		return libroService.findAllByOrderByNombre();
 	}
 	
@@ -84,15 +85,16 @@ public class HemerotecaudcApplication {
 
 	@PostMapping("/api/v1/books/save")
 	@ResponseBody
-	public Libro saveBook(@RequestBody Libro libro) {
+	public Libro saveBook(@RequestBody Libro libro) throws Exception {
 		try {
 			System.out.println("libro.nombre: "+libro.getNombre());
 			return libroService.save(libro);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			throw e;
 		}
-		return null;
+		
 	}
 
 	@PutMapping("/api/v1/books/update")
@@ -153,14 +155,46 @@ public class HemerotecaudcApplication {
 		return ejemplarService.findAll();
 	}
 
+	@GetMapping("/api/v1/ejemplar/findByBook")
+	public Object findByBook(@RequestParam(name = "book") Integer libroid) {
+		return ejemplarService.findByLibroid(libroid);
+	}
+	
 	@GetMapping("/api/v1/ejemplar/search")
 	public Optional<Ejemplar> searchEjemplar(@RequestParam(name = "description") String description) {
 		return ejemplarService.findByDescripcionContainingIgnoreCase(description);
 	}
-	
-	/************************************* Préstamo requests ****************************************/
-	
 
+	@PostMapping("/api/v1/ejemplar/save")
+	@ResponseBody
+	public Ejemplar saveEjemplar(@RequestBody Ejemplar elemplar) {
+		try {
+			return ejemplarService.save(elemplar);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	@PutMapping("/api/v1/ejemplar/update")
+	@ResponseBody
+	public Ejemplar updateEjemplar(@RequestBody Ejemplar ejemplar) {
+		try {
+			return ejemplarService.update(ejemplar);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	@DeleteMapping("/api/v1/ejemplar/delete")
+	public void deleteEjemplarById(@RequestParam(name = "idEjemplar") Integer idEjemplar) {
+		try {
+			ejemplarService.deleteById(idEjemplar);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 
 	/************************************* Estudiantes requests ****************************************/
 	

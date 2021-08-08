@@ -6,6 +6,7 @@ package co.edu.unicartagena.service;
 import java.util.List;
 import java.util.Optional;
 
+import co.edu.unicartagena.dao.LibroDao;
 import co.edu.unicartagena.model.Libro;
 
 /**
@@ -18,6 +19,6 @@ public interface LibroService extends GenericService<Libro, Integer> {
 	
 	public Optional<List<Libro>> findByNombreContainingIgnoreCaseOrderByNombre(String nombre);
 	
-	public List<Libro> findAllByOrderByNombre();
+	public List<LibroDao> findAllByOrderByNombre();
 
 }

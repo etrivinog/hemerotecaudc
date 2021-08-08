@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import co.edu.unicartagena.dao.RestMessage;
 import co.edu.unicartagena.model.Ejemplar;
 import co.edu.unicartagena.repository.EjemplarRepository;
 
@@ -55,6 +56,25 @@ public class EjemplarServiceImpl implements EjemplarService{
 	@Override
 	public Optional<Ejemplar> findByDescripcionContainingIgnoreCase(String descripcion) {
 		return ejemplarRepository.findByDescripcionContainingIgnoreCase(descripcion);
+	}
+
+	@Override
+	public Object findByLibroid(Integer libroid) {
+		
+		List<Ejemplar> ejemplares = ejemplarRepository.findByLibroid(libroid);
+		
+		/*if (!ejemplares.isEmpty()) {
+			return ejemplares;
+		}
+		
+		return new RestMessage("El libro ["+libroid+"] no tiene ejemplares.");*/
+
+		return ejemplares;
+	}
+
+	@Override
+	public Integer countByLibroidAndEstado(Integer libroid, Integer estado) {
+		return ejemplarRepository.countByLibroidAndIdestado(libroid, estado);
 	}
 
 }
