@@ -24,6 +24,7 @@ import co.edu.unicartagena.model.Estado;
 import co.edu.unicartagena.model.Estudiante;
 import co.edu.unicartagena.model.Libro;
 import co.edu.unicartagena.model.Prestamo;
+import co.edu.unicartagena.model.Recurso;
 import co.edu.unicartagena.service.AutenticacionService;
 import co.edu.unicartagena.service.AutorService;
 import co.edu.unicartagena.service.EjemplarService;
@@ -31,6 +32,7 @@ import co.edu.unicartagena.service.EstadoService;
 import co.edu.unicartagena.service.EstudianteService;
 import co.edu.unicartagena.service.LibroService;
 import co.edu.unicartagena.service.PrestamoService;
+import co.edu.unicartagena.service.RecursoService;
 
 @SpringBootApplication
 @RestController
@@ -57,6 +59,9 @@ public class HemerotecaudcApplication {
 	
 	@Autowired
 	EstadoService estadoService;
+	
+	@Autowired
+	RecursoService recursoService;
 
 	@GetMapping("/api/v1/verifyServer")
 	public Object test() {
@@ -315,5 +320,47 @@ public class HemerotecaudcApplication {
 		return estadoService.findAll();
 	}
 	
+
+	/************************************* Recurso requests ****************************************/
+	@GetMapping("/api/v1/tesis/findAll")
+	public List<Recurso> findAll() {
+		return recursoService.findAll();
+	}
+	
+	@PostMapping("/api/v1/tesis/save")
+	@ResponseBody
+	public Recurso saveTesis(@RequestBody Recurso tesis) {
+		try {
+			return recursoService.save(tesis);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	@PutMapping("/api/v1/tesis/update")
+	@ResponseBody
+	public Recurso updateStudent(@RequestBody Recurso tesis) {
+		try {
+			return recursoService.update(tesis);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	@DeleteMapping("/api/v1/tesis/delete")
+	public void deleteRecursoById(@RequestParam(name = "recursoId") Integer recursoId) {
+		try {
+			recursoService.deleteById(recursoId);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	@GetMapping("/api/v1/tesis/search")
+	public List<Recurso> searchTesis(@RequestParam(name = "tittle") String title) {
+		return recursoService.findByTituloContainingIgnoreCaseOrderByTitulo(title);
+	}
 
 }
