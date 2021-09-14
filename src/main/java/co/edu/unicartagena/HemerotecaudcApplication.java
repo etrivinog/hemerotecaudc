@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import co.edu.unicartagena.dao.EjemplarDescriptionDao;
+import co.edu.unicartagena.dao.ExistsDao;
 import co.edu.unicartagena.dao.LibroDao;
 import co.edu.unicartagena.dao.PrestamoDao;
 import co.edu.unicartagena.dao.exceptions.GeneralException;
@@ -221,6 +222,11 @@ public class HemerotecaudcApplication {
 	public Optional<List<Estudiante>> searchStudent(@RequestParam(name = "name") String nombres) {
 		return estudianteService.findByNombresContainingIgnoreCaseOrderByNombres(nombres);
 	}
+	
+	@GetMapping("/api/v1/students/studentExists")
+	public ExistsDao studentExists(@RequestParam(name = "code") String code) {
+		return estudianteService.studentExists(code);
+	}
 
 	@PostMapping("/api/v1/students/save")
 	@ResponseBody
@@ -264,7 +270,7 @@ public class HemerotecaudcApplication {
 	}
 
 	@GetMapping("/api/v1/lends/findByStudentCode")
-	public List<Prestamo> listLendsByStudentCode(@RequestParam(name = "code") String code) {
+	public List<PrestamoDao> listLendsByStudentCode(@RequestParam(name = "code") String code) throws GeneralException{
 		return prestamoService.findByCodEstudiante(code);
 	}
 	

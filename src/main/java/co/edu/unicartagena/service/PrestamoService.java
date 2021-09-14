@@ -15,7 +15,7 @@ import co.edu.unicartagena.model.Prestamo;
  */
 public interface PrestamoService extends GenericService<Prestamo, Integer> {
 
-	public List<Prestamo> findByCodEstudiante(String cod);
+	public List<PrestamoDao> findByCodEstudiante(String cod) throws GeneralException;
 
 	public Prestamo approve(Integer idPrestamo, Integer idEjemplar)  throws Exception;
 	

@@ -6,6 +6,7 @@ package co.edu.unicartagena.service;
 import java.util.List;
 import java.util.Optional;
 
+import co.edu.unicartagena.dao.ExistsDao;
 import co.edu.unicartagena.model.Estudiante;
 
 /**
@@ -21,5 +22,7 @@ public interface EstudianteService extends GenericService<Estudiante, Integer> {
 	public List<Estudiante> findAllByOrderByNombre();
 
 	public Optional<Estudiante> findByCodigo_estudiantil(String codigo);
+	
+	public ExistsDao studentExists(String code);
 	
 }

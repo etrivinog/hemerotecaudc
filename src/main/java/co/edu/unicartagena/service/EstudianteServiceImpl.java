@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import co.edu.unicartagena.dao.ExistsDao;
 import co.edu.unicartagena.model.Estudiante;
 import co.edu.unicartagena.repository.EstudianteRepository;
 
@@ -82,6 +83,20 @@ public class EstudianteServiceImpl implements EstudianteService{
 	@Override
 	public Optional<Estudiante> findByCodigo_estudiantil(String codigo) {
 		return estudianteRepository.findByCodigoestudiantil(codigo);
+	}
+
+	@Override
+	public ExistsDao studentExists(String code) {
+		
+		ExistsDao exists = new ExistsDao();
+		
+		if (estudianteRepository.findByCodigoestudiantil(code).isPresent()) {
+			exists.setExists(1);
+		}else {
+			exists.setExists(0);
+		}
+		
+		return exists;
 	}
 
 }

@@ -166,8 +166,43 @@ public class PrestamoServiceImpl implements PrestamoService{
 	}
 
 	@Override
-	public List<Prestamo> findByCodEstudiante(String cod) {
-		return prestamoRepository.findByCodEstudiante(cod);
+	public List<PrestamoDao> findByCodEstudiante(String cod) throws GeneralException{
+		
+		if (!estudianteService.findByCodigo_estudiantil(cod).isPresent()) {
+			throw new GeneralException("No existe el estudiante con el código indicado.");
+		}
+		
+		List<Prestamo> prestamos = prestamoRepository.findByCodEstudiante(cod);
+		List<PrestamoDao> prestamosDao = new ArrayList<PrestamoDao>();
+		
+		String libroTittle = "", ejemplarDesc = "";
+		Integer idLibro = null;
+		Optional<Ejemplar> ejemplar;
+		Optional<Libro> libro;
+		
+		// Hace el mapeo de Ejemplar a EjemplarDao
+		for (Prestamo prestamo : prestamos) {
+			
+			if (prestamo.getIdEjemplar() != null) {
+				ejemplar = ejemplarService.findById(prestamo.getIdEjemplar());
+				
+				if (ejemplar.isPresent()) {
+					ejemplarDesc = ejemplar.get().getDescripcion();
+					
+					idLibro = ejemplar.get().getLibroid();
+					libro = libroRepository.findById(idLibro);
+					
+					if (libro.isPresent()) {
+						libroTittle = libro.get().getNombre();
+					}
+				}
+			}
+			
+			prestamosDao.add(new PrestamoDao(prestamo.getIdprestamos(), prestamo.getFechaInicio(), prestamo.getFechaFin(), 
+					idLibro, libroTittle, prestamo.getIdEjemplar(), ejemplarDesc, prestamo.getCodEstudiante().toString(), prestamo.getEstado()));
+		}
+		
+		return prestamosDao;
 	}
 
 	@Override
