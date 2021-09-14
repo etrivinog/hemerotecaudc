@@ -264,7 +264,7 @@ public class HemerotecaudcApplication {
 	}
 
 	@GetMapping("/api/v1/lends/findByStudentCode")
-	public List<Prestamo> listLendsByStudentCode(@RequestParam(name = "code") Integer code) {
+	public List<Prestamo> listLendsByStudentCode(@RequestParam(name = "code") String code) {
 		return prestamoService.findByCodEstudiante(code);
 	}
 	

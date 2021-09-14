@@ -166,7 +166,7 @@ public class PrestamoServiceImpl implements PrestamoService{
 	}
 
 	@Override
-	public List<Prestamo> findByCodEstudiante(Integer cod) {
+	public List<Prestamo> findByCodEstudiante(String cod) {
 		return prestamoRepository.findByCodEstudiante(cod);
 	}
 
@@ -235,7 +235,7 @@ public class PrestamoServiceImpl implements PrestamoService{
 		System.out.println("ejemplares.size(): "+ejemplares.size());
 		
 		if (ejemplares.isEmpty()) {
-			//Genera un mensaje diciendo que no hay ejemplares disponibles para el libro
+			throw new GeneralException("No hay ejemplares disponibles para este libro!");
 		}
 		else {
 			prestamo.setIdEjemplar(ejemplares.get(0).getIdEjemplar());
