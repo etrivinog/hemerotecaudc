@@ -1,27 +1,18 @@
 /**
  * 
  */
-package co.edu.unicartagena.model;
+package co.edu.unicartagena.dao;
 
 import java.io.Serializable;
 import java.sql.Date;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.NamedQuery;
-import javax.persistence.SequenceGenerator;
 import javax.validation.constraints.NotNull;
 
 /**
  * @author AdrianaOtero
  *
  */
-@Entity(name = "prestamos")
-@NamedQuery(name="Prestamo.findAll", query="SELECT p FROM prestamos p")
-public class Prestamo implements Serializable{
+public class PrestamoDao implements Serializable{
 
 	/**
 	 * 
@@ -32,27 +23,32 @@ public class Prestamo implements Serializable{
 		return serialVersionUID;
 	}
 	
-	@Id
-	@Column(name="idprestamos")
-	@SequenceGenerator(name="pk_prestamos_seq",sequenceName="pk_prestamos_seq", allocationSize=1)
-	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="pk_prestamos_seq")
-	private Integer idprestamos;
 
 	@NotNull
-	@Column(name="fechainicio")
+	private Integer idprestamos;
+	@NotNull
 	private Date fechaInicio;
-
-	@Column(name="fechafin")
 	private Date fechaFin;
-
-	@Column(name="idejemplar")
+	private Integer idLibro;
+	private String libroTittle;
 	private Integer idEjemplar;
-
-	@Column(name="codEstudiante")
+	private String ejemplarDesc;
 	private String codEstudiante;
-
-	@Column(name="estado")
 	private String estado;
+
+	public PrestamoDao(@NotNull Integer idprestamos, @NotNull Date fechaInicio, Date fechaFin, Integer idLibro,
+			String libroTittle, Integer idEjemplar, String ejemplarDesc, String codEstudiante, String estado) {
+		super();
+		this.idprestamos = idprestamos;
+		this.fechaInicio = fechaInicio;
+		this.fechaFin = fechaFin;
+		this.idLibro = idLibro;
+		this.libroTittle = libroTittle;
+		this.idEjemplar = idEjemplar;
+		this.ejemplarDesc = ejemplarDesc;
+		this.codEstudiante = codEstudiante;
+		this.estado = estado;
+	}
 
 	public Integer getIdprestamos() {
 		return idprestamos;
@@ -76,6 +72,30 @@ public class Prestamo implements Serializable{
 
 	public void setFechaFin(Date fechaFin) {
 		this.fechaFin = fechaFin;
+	}
+
+	public Integer getIdLibro() {
+		return idLibro;
+	}
+
+	public void setIdLibro(Integer idLibro) {
+		this.idLibro = idLibro;
+	}
+
+	public String getLibroTittle() {
+		return libroTittle;
+	}
+
+	public void setLibroTittle(String libroTittle) {
+		this.libroTittle = libroTittle;
+	}
+
+	public String getEjemplarDesc() {
+		return ejemplarDesc;
+	}
+
+	public void setEjemplarDesc(String ejemplarDesc) {
+		this.ejemplarDesc = ejemplarDesc;
 	}
 
 	public Integer getIdEjemplar() {

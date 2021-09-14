@@ -9,5 +9,7 @@ import co.edu.unicartagena.model.Prestamo;
 public interface PrestamoRepository  extends JpaRepository<Prestamo, Integer>{
 	
 	public List<Prestamo> findByCodEstudiante(Integer cod);
+	
+	public List<Prestamo> findAllByOrderByEstado();
 
 }

@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import co.edu.unicartagena.dao.LibroDao;
-import co.edu.unicartagena.model.Ejemplar;
 import co.edu.unicartagena.model.Libro;
 import co.edu.unicartagena.repository.EjemplarRepository;
 import co.edu.unicartagena.repository.LibroRepository;

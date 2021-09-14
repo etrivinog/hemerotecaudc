@@ -17,7 +17,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import co.edu.unicartagena.dao.EjemplarDescriptionDao;
 import co.edu.unicartagena.dao.LibroDao;
+import co.edu.unicartagena.dao.PrestamoDao;
+import co.edu.unicartagena.dao.exceptions.GeneralException;
 import co.edu.unicartagena.model.Autor;
 import co.edu.unicartagena.model.Ejemplar;
 import co.edu.unicartagena.model.Estado;
@@ -165,6 +168,11 @@ public class HemerotecaudcApplication {
 		return ejemplarService.findByLibroid(libroid);
 	}
 	
+	@GetMapping("/api/v1/ejemplar/getCopyDescByBook")
+	public List<EjemplarDescriptionDao> getCopyDescByBook(@RequestParam(name = "book") Integer libroid) {
+		return ejemplarService.getEjemplarListByLibro(libroid);
+	}
+
 	@GetMapping("/api/v1/ejemplar/search")
 	public Optional<Ejemplar> searchEjemplar(@RequestParam(name = "description") String description) {
 		return ejemplarService.findByDescripcionContainingIgnoreCase(description);
@@ -251,8 +259,8 @@ public class HemerotecaudcApplication {
 	
 
 	@GetMapping("/api/v1/lends/findAll")
-	public List<Prestamo> findAllLends() {
-		return prestamoService.findAll();
+	public List<PrestamoDao> findAllLends() {
+		return prestamoService.findAllByOrderByEstado();
 	}
 
 	@GetMapping("/api/v1/lends/findByStudentCode")
@@ -262,44 +270,26 @@ public class HemerotecaudcApplication {
 	
 	@PostMapping("/api/v1/lends/save")
 	@ResponseBody
-	public Prestamo saveLend(@RequestBody Prestamo prestamo) {
-		try {
-			System.out.println("prestamo.idejemplar: "+prestamo.getIdEjemplar());
-			return prestamoService.save(prestamo);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return null;
+	public Object saveLend(@RequestBody PrestamoDao prestamo) throws GeneralException{
+		
+		return prestamoService.save(prestamo);
+		
 	}
 
 	@PutMapping("/api/v1/lends/approve")
 	@ResponseBody
-	public Prestamo approveLend(@RequestParam(name = "idprestamos") Integer idPrestamo) {
-		try {
-			System.out.println("prestamo.idejemplar: "+idPrestamo);
-			return prestamoService.approve(idPrestamo);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return null;
+	public Prestamo approveLend(@RequestParam(name = "idprestamos") Integer idPrestamo, @RequestParam(name = "idEjemplar") Integer idEjemplar) throws Exception {
+		return prestamoService.approve(idPrestamo, idEjemplar);
 	}
 
 	@DeleteMapping("/api/v1/lends/reject")
-	public void rejectL(@RequestParam(name = "idprestamos") Integer idPrestamo) {
-		try {
-			prestamoService.reject(idPrestamo);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+	public void rejectL(@RequestParam(name = "idprestamos") Integer idPrestamo) throws Exception {
+		prestamoService.reject(idPrestamo);
 	}
 
 	@DeleteMapping("/api/v1/lends/finalize")
-	public void finalizeLend(@RequestParam(name = "idprestamos") Integer idPrestamo) {
-		try {
-			prestamoService.finalize(idPrestamo);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+	public void finalizeLend(@RequestParam(name = "idprestamos") Integer idPrestamo) throws Exception {
+		prestamoService.finalize(idPrestamo);
 	}
 
 	/************************************* Autentica requests ****************************************/

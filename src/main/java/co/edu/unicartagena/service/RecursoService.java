@@ -5,7 +5,6 @@ package co.edu.unicartagena.service;
 
 import java.util.List;
 
-import co.edu.unicartagena.model.Prestamo;
 import co.edu.unicartagena.model.Recurso;
 
 /**

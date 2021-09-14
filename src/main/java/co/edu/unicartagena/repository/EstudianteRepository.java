@@ -14,5 +14,7 @@ public interface EstudianteRepository extends JpaRepository<Estudiante, Integer>
 	public Optional<List<Estudiante>> findByEmailAndPass(String email, String pass);
 
 	public List<Estudiante> findAllByOrderByNombres();
-
+	
+	public Optional<Estudiante> findByCodigoestudiantil(String codigo);
+	
 }

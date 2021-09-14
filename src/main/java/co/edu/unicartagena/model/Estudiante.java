@@ -52,7 +52,7 @@ public class Estudiante implements Serializable{
 	private String telefono;
 
 	@Column(name="codigo_estudiantil")
-	private String codigo_estudiantil;
+	private String codigoestudiantil;
 
 	@NotNull
 	@Column(name="identificacion")
@@ -105,13 +105,13 @@ public class Estudiante implements Serializable{
 	public void setTelefono(String telefono) {
 		this.telefono = telefono;
 	}
-
-	public String getCodigo_estudiantil() {
-		return codigo_estudiantil;
+	
+	public String getCodigoestudiantil() {
+		return codigoestudiantil;
 	}
 
-	public void setCodigo_estudiantil(String codigo_estudiantil) {
-		this.codigo_estudiantil = codigo_estudiantil;
+	public void setCodigoestudiantil(String codigoestudiantil) {
+		this.codigoestudiantil = codigoestudiantil;
 	}
 
 	public String getIdentificacion() {

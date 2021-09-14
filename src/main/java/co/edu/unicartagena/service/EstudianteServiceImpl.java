@@ -79,4 +79,9 @@ public class EstudianteServiceImpl implements EstudianteService{
 		return estudianteRepository.findByEmailAndPass(email, pass);
 	}
 
+	@Override
+	public Optional<Estudiante> findByCodigo_estudiantil(String codigo) {
+		return estudianteRepository.findByCodigoestudiantil(codigo);
+	}
+
 }

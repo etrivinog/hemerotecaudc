@@ -22,6 +22,9 @@ public class Estado implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+
+	public static final Integer AVAILABLE_STATUS = 1;
+	public static final Integer UNAVAILABLE_STATUS = 2;
 	
 	@Id
 	@Column(name="idestado")

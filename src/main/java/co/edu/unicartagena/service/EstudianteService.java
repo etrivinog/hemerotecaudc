@@ -20,4 +20,6 @@ public interface EstudianteService extends GenericService<Estudiante, Integer> {
 	
 	public List<Estudiante> findAllByOrderByNombre();
 
+	public Optional<Estudiante> findByCodigo_estudiantil(String codigo);
+	
 }

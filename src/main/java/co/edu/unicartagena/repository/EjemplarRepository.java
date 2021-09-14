@@ -22,4 +22,6 @@ public interface EjemplarRepository extends JpaRepository<Ejemplar, Integer> {
 
 	public Integer countByLibroidAndIdestado(Integer libroid, Integer estado);
 	
+	public List<Ejemplar> findByLibroidAndIdestado(Integer libroId, Integer idEstado);
+	
 }
